@@ -1,0 +1,42 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IAccidentReportDao">
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="AccidentReportResultMap" type="com.solvd.citytransportationsystemproject.models.AccidentReport">
+        <id property="id" column="id" />
+        <result property="date" column="date" />
+        <result property="description" column="description" />
+        <result property="personId" column="person_id" />
+        <result property="vehicleId" column="vehicle_id" />
+    </resultMap>
+
+    <select id="getAccidentReportByDate" resultMap="AccidentReportResultMap" parameterType="java.sql.Date">
+        SELECT * FROM AccidentReports WHERE date = #{date}
+    </select>
+
+    <select id="getAccidentReportByVehicleId" resultMap="AccidentReportResultMap" parameterType="long">
+        SELECT * FROM AccidentReports WHERE vehicle_id = #{vehicleId}
+    </select>
+
+    <select id="getAllAccidentReports" resultMap="AccidentReportResultMap">
+        SELECT * FROM AccidentReports
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.citytransportationsystemproject.models.AccidentReport">
+        INSERT INTO AccidentReports (id, date, description, person_id, vehicle_id)
+        VALUES (#{id}, #{date}, #{description}, #{personId}, #{vehicleId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.citytransportationsystemproject.models.AccidentReport">
+        UPDATE AccidentReports SET date = #{date}, description = #{description},
+        person_id = #{personId}, vehicle_id = #{vehicleId} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM AccidentReports WHERE id = #{id}
+    </delete>
+
+</mapper>

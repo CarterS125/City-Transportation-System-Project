@@ -1,0 +1,42 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IDriverDao">
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="DriverResultMap" type="com.solvd.citytransportationsystemproject.models.Driver">
+        <id property="id" column="id" />
+        <result property="firstName" column="first_name" />
+        <result property="lastName" column="last_name" />
+        <result property="address" column="address" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="licenseNumber" column="license_number" />
+        <result property="yearsOfExperience" column="years_of_experience" />
+        <result property="personId" column="person_id" />
+    </resultMap>
+
+    <select id="getDriverByPersonId" resultMap="DriverResultMap" parameterType="long">
+        SELECT * FROM drivers WHERE person_id = #{personId}
+    </select>
+
+    <select id="getAllDrivers" resultMap="DriverResultMap">
+        SELECT * FROM drivers
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.citytransportationsystemproject.models.Driver">
+        INSERT INTO drivers (id, first_name, last_name, address, phone_number, email, license_number, years_of_experience, person_id)
+        VALUES (#{id}, #{firstName}, #{lastName}, #{address}, #{phoneNumber}, #{email}, #{licenseNumber}, #{yearsOfExperience}, #{personId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.citytransportationsystemproject.models.Driver">
+        UPDATE drivers SET first_name = #{firstName}, last_name = #{lastName}, address = #{address}, phone_number = #{phoneNumber},
+        email = #{email}, license_number = #{licenseNumber}, years_of_experience = #{yearsOfExperience}, person_id = #{personId} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM drivers WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,41 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.ITicketDao">
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="TicketResultMap" type="Ticket">
+        <id column="id" property="id"/>
+        <result column="payment_method" property="paymentMethod"/>
+        <result column="fare" property="fare"/>
+        <result column="passenger_id" property="passengerId"/>
+    </resultMap>
+
+    <select id="getTicketByPassengerId" parameterType="long" resultMap="TicketResultMap">
+        SELECT * FROM ticket
+        WHERE passenger_id = #{passengerId}
+    </select>
+
+    <select id="getAllTickets" resultMap="TicketResultMap">
+        SELECT * FROM ticket
+    </select>
+
+    <insert id="insert" parameterType="Ticket">
+        INSERT INTO ticket (payment_method, fare, passenger_id)
+        VALUES (#{paymentMethod}, #{fare}, #{passengerId})
+    </insert>
+
+    <update id="update" parameterType="Ticket">
+        UPDATE ticket SET
+        payment_method = #{paymentMethod},
+        fare = #{fare},
+        passenger_id = #{passengerId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM ticket WHERE id = #{id}
+    </delete>
+
+</mapper>

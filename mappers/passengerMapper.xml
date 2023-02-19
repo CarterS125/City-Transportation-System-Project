@@ -1,0 +1,41 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IPassengerDao">
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <resultMap id="passengerResultMap" type="Passenger">
+        <id property="id" column="id" />
+        <result property="firstName" column="first_name" />
+        <result property="lastName" column="last_name" />
+        <result property="address" column="address" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="numberOfRides" column="number_of_rides" />
+        <result property="personId" column="person_id" />
+    </resultMap>
+
+    <select id="getPassengerByPersonId" parameterType="long" resultMap="passengerResultMap">
+        SELECT * FROM passengers
+        WHERE person_id = #{personId}
+    </select>
+
+    <select id="getAllPassengers" resultMap="passengerResultMap">
+        SELECT * FROM passengers
+    </select>
+
+    <insert id="insert" parameterType="Passenger">
+        INSERT INTO passengers (id, first_name, last_name, address, phone_number, email, number_of_rides, person_id)
+        VALUES (#{id}, #{firstName}, #{lastName}, #{address}, #{phoneNumber}, #{email}, #{numberOfRides}, #{personId})
+    </insert>
+
+    <update id="update" parameterType="Passenger">
+        UPDATE passengers
+        SET first_name = #{firstName}, last_name = #{lastName}, address = #{address}, phone_number = #{phoneNumber}, email = #{email}, number_of_rides = #{numberOfRides}, person_id = #{personId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM passengers
+        WHERE id = #{id}
+    </delete>
+</mapper>

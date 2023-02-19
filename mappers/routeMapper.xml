@@ -1,0 +1,45 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IRouteDao">
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="routeResultMap" type="Route">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="vehicleId" column="vehicle_id" />
+    </resultMap>
+
+    <select id="getRouteByName" resultMap="routeResultMap" parameterType="String">
+        SELECT id, name, vehicle_id
+        FROM routes
+        WHERE name = #{name}
+    </select>
+
+    <select id="getRouteByVehicleId" resultMap="routeResultMap" parameterType="long">
+        SELECT id, name, vehicle_id
+        FROM routes
+        WHERE vehicle_id = #{vehicleId}
+    </select>
+
+    <select id="getAllRoutes" resultMap="routeResultMap">
+        SELECT id, name, vehicle_id
+        FROM routes
+    </select>
+
+    <insert id="insert" parameterType="Route" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO routes (name, vehicle_id)
+        VALUES (#{name}, #{vehicleId})
+    </insert>
+
+    <update id="update" parameterType="Route">
+        UPDATE routes
+        SET name = #{name}, vehicle_id = #{vehicleId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM routes
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

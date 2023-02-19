@@ -1,0 +1,42 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IVehicleDao">
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="VehicleResultMap" type="com.solvd.citytransportationsystemproject.models.Vehicle">
+        <id property="id" column="id" />
+        <result property="make" column="make" />
+        <result property="model" column="model" />
+        <result property="year" column="year" />
+        <result property="capacity" column="capacity" />
+        <result property="driverId" column="driver_id" />
+    </resultMap>
+
+    <select id="getVehicleByDriverId" resultMap="VehicleResultMap" parameterType="long">
+        SELECT * FROM vehicles WHERE driver_id = #{driverId}
+    </select>
+
+    <select id="getAllVehicles" resultMap="VehicleResultMap">
+        SELECT * FROM vehicles
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.citytransportationsystemproject.models.Vehicle">
+        INSERT INTO vehicles (id, make, model, year, capacity, driver_id)
+        VALUES (#{id}, #{make}, #{model}, #{year}, #{capacity}, #{driverId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.citytransportationsystemproject.models.Vehicle">
+        UPDATE vehicles SET
+        make = #{make},
+        model = #{model},
+        year = #{year},
+        capacity = #{capacity},
+        driver_id = #{driverId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM vehicles WHERE id = #{id}
+    </delete>
+</mapper>

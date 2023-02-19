@@ -1,0 +1,35 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IPersonDao">
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="personResultMap" type="com.solvd.citytransportationsystemproject.models.Person">
+        <id property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="address" column="address"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <select id="getPersonByLastName" resultMap="personResultMap" parameterType="String">
+        SELECT * FROM persons WHERE last_name = #{lastName}
+    </select>
+
+    <select id="getAllPersons" resultMap="personResultMap">
+        SELECT * FROM persons
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.citytransportationsystemproject.models.Person">
+        INSERT INTO persons (id, first_name, last_name, address, phone_number, email) VALUES (#{id}, #{firstName}, #{lastName}, #{address}, #{phoneNumber}, #{email})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.citytransportationsystemproject.models.Person">
+        UPDATE persons SET first_name = #{firstName}, last_name = #{lastName}, address = #{address}, phone_number = #{phoneNumber}, email = #{email} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.solvd.citytransportationsystemproject.models.Person">
+        DELETE FROM persons WHERE id = #{id}
+    </delete>
+
+</mapper>

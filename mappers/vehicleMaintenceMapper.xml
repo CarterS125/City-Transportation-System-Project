@@ -1,0 +1,40 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IVehicleMaintenance">
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <select id="getById" parameterType="long" resultType="VehicleMaintenance">
+        SELECT *
+        FROM vehicle_maintenance
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllVehicleMaintenances" resultType="VehicleMaintenance">
+        SELECT *
+        FROM vehicle_maintenance
+    </select>
+
+    <select id="getVehicleMaintenanceByType" parameterType="String" resultType="VehicleMaintenance">
+        SELECT *
+        FROM vehicle_maintenance
+        WHERE type = #{type}
+    </select>
+
+    <insert id="add" parameterType="VehicleMaintenance">
+        INSERT INTO vehicle_maintenance (id, date, type, description, vehicle_id)
+        VALUES (#{id}, #{date}, #{type}, #{description}, #{vehicleId})
+    </insert>
+
+    <update id="update" parameterType="VehicleMaintenance">
+        UPDATE vehicle_maintenance
+        SET date = #{date}, type = #{type}, description = #{description}, vehicle_id = #{vehicleId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM vehicle_maintenance
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

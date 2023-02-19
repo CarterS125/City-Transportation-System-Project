@@ -1,0 +1,45 @@
+<mapper namespace="com.solvd.citytransportationsystemproject.dao.IStationDao">
+
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <resultMap id="StationResultMap" type="com.solvd.citytransportationsystemproject.models.Station">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="address" column="address"/>
+        <result property="routeId" column="route_id"/>
+    </resultMap>
+
+    <select id="getStationByType" parameterType="java.lang.String" resultMap="StationResultMap">
+        SELECT id, name, type, address, route_id
+        FROM stations
+        WHERE type = #{type}
+    </select>
+
+    <select id="getAllStations" resultMap="StationResultMap">
+        SELECT id, name, type, address, route_id
+        FROM stations
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.citytransportationsystemproject.models.Station">
+        INSERT INTO stations (name, type, address, route_id)
+        VALUES (#{name}, #{type}, #{address}, #{routeId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.citytransportationsystemproject.models.Station">
+        UPDATE stations
+        SET name = #{name},
+        type = #{type},
+        address = #{address},
+        route_id = #{routeId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM stations
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
